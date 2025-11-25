@@ -1,0 +1,25 @@
+{
+  "name": "react-prueba-tecnica",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1",
+    "standard": "^17.1.2",
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "5.1.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "eslintConfig": {
+    "extends": ".node_modules/standard/eslintrc.json"
+  }
+}

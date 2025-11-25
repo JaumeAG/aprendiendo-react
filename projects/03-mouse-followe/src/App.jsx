@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-const FollowMouse= () => {
- const [enable, setEnable] = useState(false);
+const FollowMouse = () => {
+  const [enable, setEnable] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -9,7 +9,6 @@ const FollowMouse= () => {
 
     const handleMove = (event) => {
       const { clientX, clientY } = event;
-      console.log("hadleMove", { clientX, clientY });
       setPosition({ x: clientX, y: clientY });
     };
 
@@ -20,13 +19,26 @@ const FollowMouse= () => {
     //Limpiar la suscripcion al evento, para no quedar en la memoria. ¿Cuando se ejecuta? Cuando el componente se desmonta o cuando cambia la dependencia del useEffect.
     return () => {
       console.log("cleanup");
-      window.removeEventListener, ("pointermove", handleMove);
+      window.removeEventListener("pointermove", handleMove);
+    };
+  }, [enable]);
+
+  // [] -> solo se ejecuta una vez cuando se monta el componente
+  // [enabled] -> se ejecuta cuando cambia enabled y cuando se monta el componente
+  // undefined -> se ejecuta cada vez que se renderiza el componente
+
+  //Aqui cambiamos el cursor cuando se modifica la variable enable, si es true se activa la clase no-cursor, si es false se desactiva.
+  useEffect(() => {
+    document.body.classList.toggle("no-cursor", enable);
+
+    return () => {
+      document.body.classList.remove("no-cursor");
     };
   }, [enable]);
 
   return (
     <>
-     <div
+      <div
         style={{
           position: "absolute",
           backgroundColor: "#09f",
@@ -45,12 +57,10 @@ const FollowMouse= () => {
         {enable ? "Desactivar" : "Activar"} seguir puntero
       </button>
     </>
-  )
-}
+  );
+};
 
 function App() {
- 
-
   return (
     <main>
       <FollowMouse />
